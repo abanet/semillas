@@ -2,11 +2,11 @@ var editor;
 
 $(document).ready(function() {
     editor = new $.fn.dataTable.Editor( {
-        idSrc:  'idEspecie',
+        idSrc:  'idvariedad',
         ajax: {
             create: {
                 'contentType': 'application/json',
-                'url': 'crear-especie',
+                'url': 'crear-variedad',
                 'type': 'POST',
                 'data': function (d) {
                     return JSON.stringify(d);
@@ -14,7 +14,7 @@ $(document).ready(function() {
             },
             edit: {
                 'contentType': 'application/json',
-                'url': 'editar-especie',
+                'url': 'editar-variedad',
                 'type': 'POST',
                 'data': function (d) {
                     return JSON.stringify(d);
@@ -22,55 +22,62 @@ $(document).ready(function() {
             },
             remove: {
                 'contentType': 'application/json',
-                'url': 'eliminar-especie',
+                'url': 'eliminar-variedad',
                 'type': 'POST',
                 'data': function (d) {
                     return JSON.stringify(d);
                 }
             }
         },
-        table: "#listaEspecies",
-        fields: [
-           {
+        table: "#listaVariedades",
+
+        fields: [ {
+            label: "Código:",
+            name: "codigo"
+        }, {
             label: "Nombre:",
             name: "nombre"
         },
+            {
+            label: "Especie",
+            name: "especie",
+            type: "select",
+            placeholder: "Selecciona la especie"
+        }
         ]
     } );
 
 
-    $('#listaEspecies').DataTable({
+    $('#listaVariedades').DataTable({
         dom: "Bfrtip",
-        idSrc:  'idEspecie',
+        idSrc:  'idVariedad',
         "language": {
             url: '/data/datatable-es.json'
         },
         select: true,
         ajax: {
-            url: 'especies',
+            url: 'variedades',
             dataSrc: ''
         },
         columns: [
+            { data: "codigo",
+                title: "Código",
+            },
             { data: "nombre",
-              title: "Nombre",
+                title: "Nombre",
             },
-            {
-                data: null,
-                className: "dt-center editor-edit",
-                defaultContent: '<i class="bi bi-pencil"/>',
-                orderable: false,
-                width: "3%"
+            { data: "especie.nombre",
+                title: "Especie",
             },
-            {
-                data: null,
-                className: "dt-center editor-delete",
-                defaultContent: '<i class="bi bi-trash"/>',
-                orderable: false,
-                width: "3%"
-            }
         ],
         buttons: [
-            { extend: "create", editor: editor },
+            { extend: "create",
+                editor: editor,
+                formTitle: "Creando nueva variedad",
+                formButtons: [
+                    'Crear',
+                    { text: 'Cancelar', action: function () { this.close(); } }
+                ]},
             { extend: "edit",   editor: editor },
             { extend: "remove", editor: editor },
         ]
@@ -96,4 +103,28 @@ $(document).ready(function() {
             buttons: 'Eliminar'
         } );
     } );
+
+    // Carga de especies
+
+    var listaEspecies = [];
+    $.getJSON(window.location.origin + '/especies/especies', {
+            term: "-1"
+        },
+        function(data) {
+            var especie = {};
+            $.each(data, function(i, e) {
+                especie.label = e.nombre;
+                especie.value = e.idEspecie;
+                listaEspecies.push(especie);
+                especie = {};
+            });
+
+
+        }
+    ).done(function() {
+        editor.field('especie').update(listaEspecies);
+    });
+    // -- carga de especies
+
+
 } );

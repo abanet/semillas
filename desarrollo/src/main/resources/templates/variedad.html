@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Variedades</title>
+  <object th:include="fragmentos/fragmentos :: head" th:remove="tag"></object>
+  <object th:include="fragmentos/fragmentos :: DataTableCSS" th:remove="tag"></object>
+</head>
+<body>
+<table id="listaVariedades" class="display responsive nowrap" style="width:100%">
+  <thead>
+
+  </thead>
+</table>
+
+<object th:include="fragmentos/fragmentos :: jquery" th:remove="tag"></object>
+<object th:include="fragmentos/fragmentos :: scriptsDataTable" th:remove="tag"></object>
+<script th:src="@{/js/variedades/variedades.js}"></script>
+</body>
+</html>

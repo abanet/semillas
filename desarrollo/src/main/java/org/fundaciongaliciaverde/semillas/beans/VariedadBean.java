@@ -1,7 +1,6 @@
 package org.fundaciongaliciaverde.semillas.beans;
 
 import lombok.*;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -9,8 +8,10 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class PeticionEspecieBean {
-    private Map<String, EspecieBean> data;
-    private String action;
+public class VariedadBean {
+    private Integer idVariedad;
+    private Integer codigo;
+    private String nombre;
+    private EspecieBean especie;
 }
 

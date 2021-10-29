@@ -278,6 +278,7 @@ public class Variedad {
         this.plantacionsByIdVariedad = plantacionsByIdVariedad;
     }
 
+
     @ManyToOne
     @JoinColumn(name = "idEspecie", referencedColumnName = "idEspecie", nullable = false)
     public Especie getEspecieByIdEspecie() {
