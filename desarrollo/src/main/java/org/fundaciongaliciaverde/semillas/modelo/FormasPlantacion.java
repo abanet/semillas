@@ -10,6 +10,7 @@ public class FormasPlantacion {
     private Collection<Plantacion> plantacionsByIdFormasPlantacion;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idFormasPlantacion", nullable = false)
     public Integer getIdFormasPlantacion() {
         return idFormasPlantacion;

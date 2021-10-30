@@ -11,7 +11,7 @@ public interface EspecieServicio {
 
     /**
      * @param nombre Nombre de la nueva especie que vamos a crear si no existe
-     * @return, el nombre de la especie creada o el mensaje por el que no se pudo crear.
+     * @return, Nueva especie creada.
      */
     Especie crearNuevaEspecie(String nombre);
 
